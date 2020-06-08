@@ -15,7 +15,7 @@ const actions = {
       // TODO: ローカルストレージは危険らしいので、別場所にトークンを保存させる
       localStorage.token = response.data.access_token;
       // TODO: ログイン後の遷移先をダッシュボードへ
-      router.push({path: '/crawlings'});
+      router.push({path: '/dashboard'});
     } catch (e) {
       // TODO: ログインできなかった旨のエラーメッセージを表示する
       console.log(e);

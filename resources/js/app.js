@@ -4,12 +4,18 @@ import router from './router'
 import store from './store'
 
 Vue.component('app', require('./components/globals/App.vue').default);
+Vue.component('dashboard', require('./components/pages/Dashboard.vue').default);
 Vue.component('crawlings', require('./components/pages/Crawlings.vue').default);
 
-router.beforeEach((to, from, next) => {
+function authenticate () {
     const accessToken = localStorage.getItem('token');
-    console.log(to.name);
-    if ((to.name !== 'Login') && (accessToken === null)) {
+    return (accessToken !== null);
+}
+
+router.beforeEach((to, from, next) => {
+    if ((to.name === 'Login') && authenticate()) {
+        next({name: 'Dashboard'});
+    } else if ((to.name !== 'Login') && !authenticate()) {
         next({name: 'Login'});
     } else {
         next();
