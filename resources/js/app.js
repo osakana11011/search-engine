@@ -6,6 +6,16 @@ import store from './store'
 Vue.component('app', require('./components/globals/App.vue').default);
 Vue.component('crawlings', require('./components/pages/Crawlings.vue').default);
 
+router.beforeEach((to, from, next) => {
+    const accessToken = localStorage.getItem('token');
+    console.log(to.name);
+    if ((to.name !== 'Login') && (accessToken === null)) {
+        next({name: 'Login'});
+    } else {
+        next();
+    }
+});
+
 const app = new Vue({
     el: '#app',
     router,

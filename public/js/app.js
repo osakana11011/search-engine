@@ -37757,6 +37757,18 @@ __webpack_require__.r(__webpack_exports__);
 
 vue__WEBPACK_IMPORTED_MODULE_1___default.a.component('app', __webpack_require__(/*! ./components/globals/App.vue */ "./resources/js/components/globals/App.vue")["default"]);
 vue__WEBPACK_IMPORTED_MODULE_1___default.a.component('crawlings', __webpack_require__(/*! ./components/pages/Crawlings.vue */ "./resources/js/components/pages/Crawlings.vue")["default"]);
+_router__WEBPACK_IMPORTED_MODULE_2__["default"].beforeEach(function (to, from, next) {
+  var accessToken = localStorage.getItem('token');
+  console.log(to.name);
+
+  if (to.name !== 'Login' && accessToken === null) {
+    next({
+      name: 'Login'
+    });
+  } else {
+    next();
+  }
+});
 var app = new vue__WEBPACK_IMPORTED_MODULE_1___default.a({
   el: '#app',
   router: _router__WEBPACK_IMPORTED_MODULE_2__["default"],
@@ -38025,11 +38037,11 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODU
   mode: 'history',
   routes: [{
     path: '/',
-    name: _components_pages_login_vue__WEBPACK_IMPORTED_MODULE_2__["default"],
+    name: 'Login',
     component: _components_pages_login_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
   }, {
     path: '/crawlings',
-    name: _components_pages_Crawlings_vue__WEBPACK_IMPORTED_MODULE_3__["default"],
+    name: 'Crawlings',
     component: _components_pages_Crawlings_vue__WEBPACK_IMPORTED_MODULE_3__["default"]
   }]
 }));
@@ -38215,11 +38227,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../../router */ "./resources/js/router.js");
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
 
 
 var state = {};
@@ -38233,20 +38247,33 @@ var actions = {
           switch (_context.prev = _context.next) {
             case 0:
               commit = _ref.commit;
-              _context.next = 3;
+              _context.prev = 1;
+              _context.next = 4;
               return axios__WEBPACK_IMPORTED_MODULE_1___default.a.post('api/auth/login', credentials);
 
-            case 3:
+            case 4:
               response = _context.sent;
               // TODO: ローカルストレージは危険らしいので、別場所にトークンを保存させる
-              localStorage.token = response.data.access_token;
+              localStorage.token = response.data.access_token; // TODO: ログイン後の遷移先をダッシュボードへ
 
-            case 5:
+              _router__WEBPACK_IMPORTED_MODULE_2__["default"].push({
+                path: '/crawlings'
+              });
+              _context.next = 12;
+              break;
+
+            case 9:
+              _context.prev = 9;
+              _context.t0 = _context["catch"](1);
+              // TODO: ログインできなかった旨のエラーメッセージを表示する
+              console.log(_context.t0);
+
+            case 12:
             case "end":
               return _context.stop();
           }
         }
-      }, _callee);
+      }, _callee, null, [[1, 9]]);
     }))();
   }
 };

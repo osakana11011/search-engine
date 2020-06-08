@@ -17336,11 +17336,11 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODU
   mode: 'history',
   routes: [{
     path: '/',
-    name: _components_pages_login_vue__WEBPACK_IMPORTED_MODULE_2__["default"],
+    name: 'Login',
     component: _components_pages_login_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
   }, {
     path: '/crawlings',
-    name: _components_pages_Crawlings_vue__WEBPACK_IMPORTED_MODULE_3__["default"],
+    name: 'Crawlings',
     component: _components_pages_Crawlings_vue__WEBPACK_IMPORTED_MODULE_3__["default"]
   }]
 }));

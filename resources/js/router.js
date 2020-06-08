@@ -12,12 +12,12 @@ export default new VueRouter({
   routes: [
       {
           path: '/',
-          name: login,
+          name: 'Login',
           component: login,
       },
       {
         path: '/crawlings',
-        name: crawlings,
+        name: 'Crawlings',
         component: crawlings,
     },
   ]
