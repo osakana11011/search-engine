@@ -18,3 +18,6 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('/crawling', 'CrawlingController@index')->name('crawling');
+Route::post('/crawling/enqueue', 'CrawlingController@create')->name('crawling.enqueue');
