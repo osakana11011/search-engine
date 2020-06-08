@@ -15,10 +15,10 @@ export default new VueRouter({
           name: login,
           component: login,
       },
-      // {
-      //     path: '/detail',
-      //     name: detail,
-      //     component: detail
-      // }
+      {
+        path: '/crawlings',
+        name: crawlings,
+        component: crawlings,
+    },
   ]
 });

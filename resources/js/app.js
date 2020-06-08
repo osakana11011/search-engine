@@ -3,6 +3,7 @@ import Vue from 'vue'
 import router from './router'
 import store from './store'
 
+Vue.component('app', require('./components/globals/App.vue').default);
 Vue.component('crawlings', require('./components/pages/Crawlings.vue').default);
 
 const app = new Vue({
