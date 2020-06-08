@@ -1,6 +1,6 @@
 <template>
   <div>
-    <header class="navbar navbar-light bg-light">
+    <header class="navbar navbar-light bg-light hoge">
       <a class="navbar-brand" href="#">Search Engine</a>
     </header>
     <slot></slot>
@@ -12,7 +12,4 @@
 </script>
 
 <style scoped>
-.hoge {
-  background-color: #555;
-}
 </style>
