@@ -1,39 +1,41 @@
 <template>
-  <div class="container">
-    <!-- クローリング対象を登録するフォーム -->
-    <div class="panel panel-default">
-      <div class="panel-body">
-        <div class="form-group">
-          <label class="control-label">クローリングURL</label>
-          <input type="text" class="form-control" :value="crawlingUrl" @input="onInputCrawlingUrl" />
-          <div class="invalid-feedback">エラーメッセージ</div>
-        </div>
-        <div class="form-group text-right">
-          <button type="button" class="btn btn-primary" @click="submitCrawlingUrl">登録</button>
+  <app>
+    <div class="container">
+      <!-- クローリング対象を登録するフォーム -->
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <div class="form-group">
+            <label class="control-label">クローリングURL</label>
+            <input type="text" class="form-control" :value="crawlingUrl" @input="onInputCrawlingUrl" />
+            <div class="invalid-feedback">エラーメッセージ</div>
+          </div>
+          <div class="form-group text-right">
+            <button type="button" class="btn btn-primary" @click="submitCrawlingUrl">登録</button>
+          </div>
         </div>
       </div>
-    </div>
 
-    <!-- クローリング対象を表示するテーブル -->
-    <table class="table">
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>URL</th>
-          <th>ステータス</th>
-          <th>作成日時</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="crawling in crawlings">
-          <td>{{ crawling.id }}</td>
-          <td>{{ crawling.url }}</td>
-          <td>{{ convertStatus(crawling.status) }}</td>
-          <td>{{ crawling.created_at }}</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+      <!-- クローリング対象を表示するテーブル -->
+      <table class="table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>URL</th>
+            <th>ステータス</th>
+            <th>作成日時</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="crawling in crawlings">
+            <td>{{ crawling.id }}</td>
+            <td>{{ crawling.url }}</td>
+            <td>{{ convertStatus(crawling.status) }}</td>
+            <td>{{ crawling.created_at }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </app>
 </template>
 
 <script>

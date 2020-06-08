@@ -140,6 +140,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   created: function created() {
@@ -734,79 +736,74 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "container" }, [
-    _c("div", { staticClass: "panel panel-default" }, [
-      _c("div", { staticClass: "panel-body" }, [
-        _c("div", { staticClass: "form-group" }, [
-          _c("label", { staticClass: "control-label" }, [
-            _vm._v("クローリングURL")
+  return _c("app", [
+    _c("div", { staticClass: "container" }, [
+      _c("div", { staticClass: "panel panel-default" }, [
+        _c("div", { staticClass: "panel-body" }, [
+          _c("div", { staticClass: "form-group" }, [
+            _c("label", { staticClass: "control-label" }, [
+              _vm._v("クローリングURL")
+            ]),
+            _vm._v(" "),
+            _c("input", {
+              staticClass: "form-control",
+              attrs: { type: "text" },
+              domProps: { value: _vm.crawlingUrl },
+              on: { input: _vm.onInputCrawlingUrl }
+            }),
+            _vm._v(" "),
+            _c("div", { staticClass: "invalid-feedback" }, [
+              _vm._v("エラーメッセージ")
+            ])
           ]),
           _vm._v(" "),
-          _c("input", {
-            staticClass: "form-control",
-            attrs: { type: "text" },
-            domProps: { value: _vm.crawlingUrl },
-            on: { input: _vm.onInputCrawlingUrl }
-          }),
-          _vm._v(" "),
-          _c("div", { staticClass: "invalid-feedback" }, [
-            _vm._v("エラーメッセージ")
+          _c("div", { staticClass: "form-group text-right" }, [
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-primary",
+                attrs: { type: "button" },
+                on: { click: _vm.submitCrawlingUrl }
+              },
+              [_vm._v("登録")]
+            )
+          ])
+        ])
+      ]),
+      _vm._v(" "),
+      _c("table", { staticClass: "table" }, [
+        _c("thead", [
+          _c("tr", [
+            _c("th", [_vm._v("ID")]),
+            _vm._v(" "),
+            _c("th", [_vm._v("URL")]),
+            _vm._v(" "),
+            _c("th", [_vm._v("ステータス")]),
+            _vm._v(" "),
+            _c("th", [_vm._v("作成日時")])
           ])
         ]),
         _vm._v(" "),
-        _c("div", { staticClass: "form-group text-right" }, [
-          _c(
-            "button",
-            {
-              staticClass: "btn btn-primary",
-              attrs: { type: "button" },
-              on: { click: _vm.submitCrawlingUrl }
-            },
-            [_vm._v("登録")]
-          )
-        ])
+        _c(
+          "tbody",
+          _vm._l(_vm.crawlings, function(crawling) {
+            return _c("tr", [
+              _c("td", [_vm._v(_vm._s(crawling.id))]),
+              _vm._v(" "),
+              _c("td", [_vm._v(_vm._s(crawling.url))]),
+              _vm._v(" "),
+              _c("td", [_vm._v(_vm._s(_vm.convertStatus(crawling.status)))]),
+              _vm._v(" "),
+              _c("td", [_vm._v(_vm._s(crawling.created_at))])
+            ])
+          }),
+          0
+        )
       ])
-    ]),
-    _vm._v(" "),
-    _c("table", { staticClass: "table" }, [
-      _vm._m(0),
-      _vm._v(" "),
-      _c(
-        "tbody",
-        _vm._l(_vm.crawlings, function(crawling) {
-          return _c("tr", [
-            _c("td", [_vm._v(_vm._s(crawling.id))]),
-            _vm._v(" "),
-            _c("td", [_vm._v(_vm._s(crawling.url))]),
-            _vm._v(" "),
-            _c("td", [_vm._v(_vm._s(_vm.convertStatus(crawling.status)))]),
-            _vm._v(" "),
-            _c("td", [_vm._v(_vm._s(crawling.created_at))])
-          ])
-        }),
-        0
-      )
     ])
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("thead", [
-      _c("tr", [
-        _c("th", [_vm._v("ID")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("URL")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("ステータス")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("作成日時")])
-      ])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 

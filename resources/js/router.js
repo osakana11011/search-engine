@@ -20,5 +20,5 @@ export default new VueRouter({
         name: 'Crawlings',
         component: crawlings,
     },
-  ]
+  ],
 });
