@@ -11,13 +11,17 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/{any}', function () {
+    return view('index');
+})->where('any', '.*');
 
-Auth::routes();
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
-Route::get('/home', 'HomeController@index')->name('home');
+// Auth::routes();
 
-Route::get('/crawling', 'CrawlingController@index')->name('crawling');
-Route::post('/crawling/enqueue', 'CrawlingController@create')->name('crawling.enqueue');
+// Route::get('/home', 'HomeController@index')->name('home');
+
+// Route::get('/crawling', 'CrawlingController@index')->name('crawling');
+// Route::post('/crawling/enqueue', 'CrawlingController@create')->name('crawling.enqueue');
