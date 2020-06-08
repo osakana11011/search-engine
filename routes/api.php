@@ -13,6 +13,13 @@ use Illuminate\Http\Request;
 |
 */
 
+Route::group(['middleware' => 'api', 'prefix' => 'auth'], function ($router) {
+    Route::post('login', 'AuthController@login');
+    Route::post('logout', 'AuthController@logout');
+    Route::post('refresh', 'AuthController@refresh');
+    Route::post('me', 'AuthController@me');
+});
+
 Route::group(['middleware' => ['api']], function () {
     Route::get('/crawlings', 'Api\CrawlingController@index');
     Route::post('/crawlings', 'Api\CrawlingController@create');
