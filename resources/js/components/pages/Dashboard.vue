@@ -1,7 +1,7 @@
 <template>
   <app>
     <div class="container">
-      <router-link to="/crawlings">Crawlings</router-link>
+      Dashboard
     </div>
   </app>
 </template>

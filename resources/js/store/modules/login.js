@@ -21,6 +21,10 @@ const actions = {
       console.log(e);
     }
   },
+  async logout ({commit}) {
+    localStorage.removeItem('token');
+    router.push({path: '/'});
+  }
 };
 
 const mutations = {
