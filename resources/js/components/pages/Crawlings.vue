@@ -15,8 +15,9 @@
         </div>
       </div>
 
+      <!-- ページング -->
       <nav aria-label="ページング">
-        <ul class="pagination">
+        <ul class="pagination justify-content-end">
           <li class="page-item" :class="{disabled: !isExistPrev}"><button class="page-link" @click="movePage" :value="prevPage">前へ</button></li>
           <li class="page-item" :class="{active: isCurrentPage(i)}" v-for="i in lastPage"><button class="page-link" @click="movePage" :value="i">{{ i }}</button></li>
           <li class="page-item" :class="{disabled: !isExistNext}"><button class="page-link" @click="movePage" :value="nextPage">次へ</button></li>
@@ -24,24 +25,24 @@
       </nav>
 
       <!-- クローリング対象を表示するテーブル -->
-      <table class="table">
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>URL</th>
-            <th>ステータス</th>
-            <th>作成日時</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="crawling in crawlings">
-            <td>{{ crawling.id }}</td>
-            <td>{{ crawling.url }}</td>
-            <td>{{ convertStatus(crawling.status) }}</td>
-            <td>{{ crawling.created_at }}</td>
-          </tr>
-        </tbody>
-      </table>
+      <div class="table-responsive">
+        <table class="table">
+          <thead class="thead-light">
+            <tr class="d-flex">
+              <th class="col-5">URL</th>
+              <th class="col-4">ステータス</th>
+              <th class="col-3">作成日時</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="d-flex" v-for="crawling in crawlings">
+              <td class="col-5">{{ crawling.url }}</td>
+              <td class="col-4">{{ convertStatus(crawling.status) }}</td>
+              <td class="col-3">{{ crawling.created_at }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   </app>
 </template>
@@ -93,10 +94,17 @@
       },
       movePage (e) {
         this.$store.dispatch('getCrawlings', e.target.value);
-      }
+        this.$router.push({path: 'crawlings', query: {page: e.target.value}});
+      },
     },
   }
 </script>
 
 <style scoped>
+  table {
+    width: 100%;
+    table-layout: fixed;
+    word-break: break-all;
+    word-wrap: break-all;
+  }
 </style>
