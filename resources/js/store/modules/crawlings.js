@@ -12,9 +12,24 @@ const state = {
       errorMessage: '',
     },
   },
+  alert: {
+    isShow: true,
+    type: '',
+    message: '',
+  },
 }
 
 const getters = {
+  getAlertClass(state) {
+    switch (state.alert.type) {
+      case 'success':
+        return {'alert-success': true};
+      case 'failed':
+        return {'alert-danger': true};
+      default:
+        return {'d-none': true};
+    }
+  },
 }
 
 const actions = {
@@ -45,9 +60,11 @@ const actions = {
         url: crawlingUrl,
       });
       commit('updateCrawlingUrl', '');
+      commit('setAlert', {type: 'success', message: 'クローリング情報の登録に成功しました。'});
     } catch (e) {
       // TODO: クローリングデータの登録に失敗した時の処理
       console.log(e);
+      commit('setAlert', {type: 'failed', message: 'クローリング情報の登録に失敗しました。'});
     }
   },
 }
@@ -61,6 +78,11 @@ const mutations = {
   },
   updateCrawlingUrl (state, crawlingUrl) {
     state.form.crawlingUrl.value = crawlingUrl;
+  },
+  setAlert (state, payload) {
+    state.alert.isShow = true;
+    state.alert.type = payload.type;
+    state.alert.message = payload.message;
   },
 }
 

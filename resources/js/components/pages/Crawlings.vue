@@ -2,7 +2,8 @@
   <app>
     <div class="container">
       <!-- クローリング対象を登録するフォーム -->
-      <div class="panel panel-default">
+      <div class="m-2 alert" :class="[getAlertClass]" role="alert">{{ alertMessage }}</div>
+      <div class="">
         <div class="panel-body">
           <div class="form-group">
             <label class="control-label">クローリングURL</label>
@@ -48,7 +49,7 @@
 </template>
 
 <script>
-  import { mapState } from "vuex";
+  import { mapState, mapGetters } from "vuex";
 
   export default {
     created() {
@@ -68,7 +69,12 @@
         crawlings: state => state.crawlings.data,
         isExistError: state => state.crawlings.crawlingForm.isExistError,
         crawlingErrorMessage: state => state.crawlings.crawlingForm.errorMessage,
+        isShowAlert: state => state.crawlings.alert.isShow,
+        alertMessage: state => state.crawlings.alert.message,
       }),
+      ...mapGetters([
+        'getAlertClass',
+      ]),
       convertStatus: () => (status) => {
         switch (status) {
           case 0:
