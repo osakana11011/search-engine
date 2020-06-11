@@ -15,6 +15,14 @@
         </div>
       </div>
 
+      <nav aria-label="ページング">
+        <ul class="pagination">
+          <li class="page-item" :class="{disabled: !isExistPrev}"><button class="page-link" @click="movePage" :value="prevPage">前へ</button></li>
+          <li class="page-item" :class="{active: isCurrentPage(i)}" v-for="i in lastPage"><button class="page-link" @click="movePage" :value="i">{{ i }}</button></li>
+          <li class="page-item" :class="{disabled: !isExistNext}"><button class="page-link" @click="movePage" :value="nextPage">次へ</button></li>
+        </ul>
+      </nav>
+
       <!-- クローリング対象を表示するテーブル -->
       <table class="table">
         <thead>
@@ -43,12 +51,20 @@
 
   export default {
     created() {
-      this.$store.dispatch('refreshCrawlings');
+      const page = (this.$route.query.page !== undefined) ? this.$route.query.page : 1;
+      this.$store.dispatch('getCrawlings', page);
     },
     computed: {
       ...mapState({
+        isCurrentPage: state => i => (state.crawlings.paging.current === i),
+        isExistPrev: state => (state.crawlings.paging.current > 1),
+        isExistNext: state => (state.crawlings.paging.current < state.crawlings.paging.last),
+        prevPage: state => (state.crawlings.paging.current - 1),
+        nextPage: state => state.crawlings.paging.current + 1,
+        currentPage: state => state.crawlings.paging.current,
+        lastPage: state => state.crawlings.paging.last,
         crawlingUrl: state => state.crawlings.form.crawlingUrl.value,
-        crawlings: state => state.crawlings.displayData.crawlings,
+        crawlings: state => state.crawlings.data,
         isExistError: state => state.crawlings.crawlingForm.isExistError,
         crawlingErrorMessage: state => state.crawlings.crawlingForm.errorMessage,
       }),
@@ -65,7 +81,7 @@
           default:
             return '未定義';
         }
-      }
+      },
     },
     methods: {
       onInputCrawlingUrl (e) {
@@ -73,7 +89,11 @@
       },
       submitCrawlingUrl (e) {
         this.$store.dispatch('submitCrawlingUrl');
+        this.$store.dispatch('getCrawlings', this.currentPage);
       },
+      movePage (e) {
+        this.$store.dispatch('getCrawlings', e.target.value);
+      }
     },
   }
 </script>
