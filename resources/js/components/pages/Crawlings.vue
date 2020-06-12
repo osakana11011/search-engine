@@ -2,8 +2,7 @@
   <app>
     <div class="container">
       <!-- クローリング対象を登録するフォーム -->
-      <div class="m-2 alert" :class="[getAlertClass]" role="alert">{{ alertMessage }}</div>
-      <div class="">
+      <div class="m-4">
         <div class="panel-body">
           <div class="form-group">
             <label class="control-label">クローリングURL</label>
@@ -15,6 +14,10 @@
           </div>
         </div>
       </div>
+      <hr>
+
+      <!-- 操作に対するアラートメッセージ -->
+      <div class="m-2 alert" :class="[getAlertClass]" role="alert">{{ alertMessage }}</div>
 
       <!-- ページング -->
       <nav aria-label="ページング">
