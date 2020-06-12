@@ -13,7 +13,7 @@ const state = {
     },
   },
   alert: {
-    isShow: true,
+    isShow: false,
     type: '',
     message: '',
   },

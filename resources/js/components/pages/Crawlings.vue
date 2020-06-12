@@ -72,7 +72,6 @@
         crawlings: state => state.crawlings.data,
         isExistError: state => state.crawlings.crawlingForm.isExistError,
         crawlingErrorMessage: state => state.crawlings.crawlingForm.errorMessage,
-        isShowAlert: state => state.crawlings.alert.isShow,
         alertMessage: state => state.crawlings.alert.message,
       }),
       ...mapGetters([
