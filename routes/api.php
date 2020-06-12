@@ -20,7 +20,7 @@ Route::group(['middleware' => 'api', 'prefix' => 'auth'], function ($router) {
     Route::post('me', 'AuthController@me');
 });
 
-Route::group(['middleware' => ['api']], function () {
+Route::group(['middleware' => ['auth:api']], function () {
     Route::get('/crawlings', 'Api\CrawlingController@index');
     Route::post('/crawlings', 'Api\CrawlingController@create');
 });

@@ -12,8 +12,6 @@ const actions = {
     try {
       // ログイン処理
       const response = await axios.post('api/auth/login', credentials);
-      // TODO: ローカルストレージは危険らしいので、別場所にトークンを保存させる
-      localStorage.token = response.data.access_token;
       // TODO: ログイン後の遷移先をダッシュボードへ
       router.push({path: '/dashboard'});
     } catch (e) {

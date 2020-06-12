@@ -20,6 +20,7 @@ class CrawlingController extends Controller
 
     public function index()
     {
+        Log::info('CrawlingController@index');
         return response()->json([
             Crawling::orderBy('created_at', 'desc')->paginate(10),
         ]);
