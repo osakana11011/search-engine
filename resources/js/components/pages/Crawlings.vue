@@ -99,7 +99,6 @@
       },
       submitCrawlingUrl (e) {
         this.$store.dispatch('submitCrawlingUrl');
-        this.$store.dispatch('getCrawlings', this.currentPage);
       },
       movePage (e) {
         this.$store.dispatch('getCrawlings', e.target.value);

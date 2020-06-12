@@ -61,6 +61,7 @@ const actions = {
       });
       commit('updateCrawlingUrl', '');
       commit('setAlert', {type: 'success', message: 'クローリング情報の登録に成功しました。'});
+      dispatch('getCrawlings', 1);
     } catch (e) {
       // TODO: クローリングデータの登録に失敗した時の処理
       console.log(e);
