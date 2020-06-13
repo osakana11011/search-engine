@@ -12,7 +12,7 @@ use Illuminate\Queue\SerializesModels;
 
 use Log;
 
-class ProcessCrawling implements ShouldQueue
+class CrawlingJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
@@ -35,6 +35,9 @@ class ProcessCrawling implements ShouldQueue
      */
     public function handle()
     {
-        var_dump($this->crawlingURL);
+        // var_dump($this->crawlingURL);
+        Log::info('START - Crawling Job.');
+        Log::info($this->crawlingURL);
+        Log::info('END   - Crawling Job.');
     }
 }

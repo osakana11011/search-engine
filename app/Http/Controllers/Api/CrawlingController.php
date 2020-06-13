@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Crawling;
 use Illuminate\Http\Request;
 use App\Service\CrawlingService;
+use App\Jobs\CrawlingJob;
 use Log;
 use Auth;
 
@@ -34,6 +35,7 @@ class CrawlingController extends Controller
             'user_id' => $this->user->id,
             'url' => $request->input('url'),
         ]);
+        CrawlingJob::dispatch($request->input('url'));
         return response('OK', 200);
     }
 }
