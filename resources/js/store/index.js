@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 
-import login from './modules/login'
+import auth from './modules/auth'
 import crawlings from './modules/crawlings'
 
 Vue.use(Vuex)
@@ -9,16 +9,13 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   strict: process.env.NODE_ENV !== 'production',
   modules: {
-    login,
+    auth,
     crawlings,
   },
   state: {
-
-  },
-  mutations: {
-
   },
   actions: {
-
-  }
+  },
+  mutations: {
+  },
 })
