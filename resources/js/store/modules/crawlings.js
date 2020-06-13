@@ -33,7 +33,7 @@ const getters = {
 }
 
 const actions = {
-  async getCrawlings({commit}, page) {
+  async getCrawlings({dispatch, commit}, page) {
     try {
       const response = await axios.get('/api/crawlings', {
         params: {
@@ -46,8 +46,7 @@ const actions = {
       });
       commit('updateCrawlings', response.data[0].data);
     } catch (e) {
-      // TODO: クローリングデータの取得に失敗した時の処理
-      console.log(e);
+      dispatch('logout');
     }
   },
   onInputCrawlingUrl({commit}, payload) {
@@ -63,8 +62,6 @@ const actions = {
       commit('setAlert', {type: 'success', message: 'クローリング情報の登録に成功しました。'});
       dispatch('getCrawlings', 1);
     } catch (e) {
-      // TODO: クローリングデータの登録に失敗した時の処理
-      console.log(e);
       commit('setAlert', {type: 'failed', message: 'クローリング情報の登録に失敗しました。'});
     }
   },
