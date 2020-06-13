@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="lodingComplete">
     <!-- Header -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <div class="container">
@@ -39,17 +39,30 @@
     <!-- Contents -->
     <slot></slot>
   </div>
+
+  <!-- ローディング -->
+  <div v-else>
+  </div>
 </template>
 
 <script>
-export default {
-  methods: {
-    logout: function () {
-      console.log('logout');
-      this.$store.dispatch('logout');
+  import { mapState, mapGetters } from "vuex";
+
+  export default {
+    created: function () {
+      console.log('hoge');
+    },
+    computed: {
+      ...mapState({
+        lodingComplete: state => !state.loding,
+      }),
+    },
+    methods: {
+      logout: function () {
+        this.$store.dispatch('logout');
+      }
     }
   }
-}
 </script>
 
 <style scoped>

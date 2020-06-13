@@ -13,9 +13,13 @@ export default new Vuex.Store({
     crawlings,
   },
   state: {
+    loding: true,
   },
   actions: {
   },
   mutations: {
+    updateLoding (state, payload) {
+      state.loding = payload;
+    },
   },
 })

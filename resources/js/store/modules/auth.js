@@ -14,7 +14,7 @@ const actions = {
       // ログイン処理
       await axios.post('api/auth/login', credentials);
       commit('updateLoggedIn', true);
-      router.push({path: '/dashboard'});
+      router.push('Dashboard');
     } catch (e) {
       // TODO: ログインできなかった旨のエラーメッセージを表示する
       console.log(e);
@@ -22,22 +22,31 @@ const actions = {
     }
   },
   async logout ({commit}) {
+    await axios.post('api/auth/logout');
     commit('updateLoggedIn', false);
-    router.push({path: '/'});
+    router.push('Login');
   },
-  refreshToken ({commit}) {
+  async refreshToken ({commit}) {
+    try {
+      await axios.post('api/auth/refresh');
+    } catch (e) {
+
+    }
     axios.post('api/auth/refresh').then(() => {
+      commit('updateLoding', false);
       commit('updateLoggedIn', true);
       router.push('Dashboard');
     }).catch((e) => {
       console.log(e);
+      commit('updateLoding', false);
       commit('updateLoggedIn', false);
+      router.push('Login');
     });
   }
 }
 
 const mutations = {
-  async updateLoggedIn (state, payload) {
+  updateLoggedIn (state, payload) {
     state.loggedIn = payload;
   },
 }

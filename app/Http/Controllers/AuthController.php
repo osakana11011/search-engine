@@ -51,9 +51,9 @@ class AuthController extends Controller
      */
     public function logout()
     {
-        auth()->logout();
-
-        return response()->json(['message' => 'Successfully logged out']);
+        return response()->json([
+            'message' => 'Success',
+        ])->cookie(token, null);
     }
 
     /**
@@ -78,13 +78,13 @@ class AuthController extends Controller
         return response()->json([
             'message' => 'Success',
         ])->cookie(
-            'token',
-            $token,
-            auth()->factory()->getTTL() * 60,
-            null,
-            null,
-            false,
-            true
+            'token',                          // Cookie名
+            $token,                           // トークンの内容
+            auth()->factory()->getTTL() * 60, // トークンの寿命(分)
+            null,                             // path
+            null,                             // domain
+            false,                            // secure: httpsの時のみ送信するようにするか
+            true                              // httpOnly: JavaScriptからアクセスできないようにするか
         );
     }
 }

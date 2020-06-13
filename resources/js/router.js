@@ -35,10 +35,6 @@ const router = new VueRouter({
 });
 
 router.beforeEach((to, from, next) => {
-  if (!isLoggedIn()) {
-    store.dispatch('refreshToken');
-  }
-
   if (isLoggedIn()) {
     // ログイン状態の時の処理
     // 「ルート」「ログイン」 => 「ダッシュボード」
@@ -48,9 +44,10 @@ router.beforeEach((to, from, next) => {
       next();
     }
   } else {
+    store.dispatch('refreshToken');
     // ログイン状態で無い時の処理
     // 「ログイン」以外 => 「ログイン」
-    if (to.name !== 'Login') {
+    if (store.state.loging === false && to.name !== 'Login') {
       next({name: 'Login'});
     }
   }
