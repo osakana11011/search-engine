@@ -11,30 +11,29 @@ use Auth;
 
 class CrawlingController extends Controller
 {
+    private $user;
     private $crawlingService;
 
     public function __construct(CrawlingService $crawlingService)
     {
+        $this->user = auth()->user();
         $this->crawlingService = $crawlingService;
     }
 
     public function index()
     {
-        Log::info('CrawlingController@index');
+        $crawlings = $this->crawlingService->getByUserID($this->user->id);
         return response()->json([
-            Crawling::orderBy('created_at', 'desc')->paginate(10),
+            $crawlings,
         ]);
     }
 
     public function create(Request $request)
     {
-        Log::info($request->input('url'));
-
         Crawling::create([
+            'user_id' => $this->user->id,
             'url' => $request->input('url'),
         ]);
         return response('OK', 200);
-        // $this->crawlingService->createWithUserID($request->attributes());
-        // ProcessCrawling::dispatch($request->input('url'));
     }
 }

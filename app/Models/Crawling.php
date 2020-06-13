@@ -16,4 +16,11 @@ class Crawling extends Model
         'created_at',
         'deleted_at',
     ];
+
+    public function scopeFilterByUserID($query, $userID)
+    {
+        if (!empty($userID)) {
+            return $query->where('user_id', $userID);
+        }
+    }
 }
