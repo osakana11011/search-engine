@@ -43,6 +43,12 @@ class CrawlingJob implements ShouldQueue
         // ドメイン情報の登録
         $domain = Domain::firstOrCreate(['name' => Domain::extractDomainName($this->crawlingURL)]);
 
+        // robots.txtを読み取る
+        $robotsURL = "https://{$domain->name}/robots.txt";
+        exec("node ./resources/js/scraping/robots.js --url {$robotsURL}", $_robotsResult);
+        $robotsResult = json_decode($_robotsResult[0]);
+        
+
         // exec("node ./resources/js/scraping/index.js --url {$this->crawlingURL}", $result);
         // Log::debug(print_r(json_decode($result[0]), true));
         // $result = json_decode($result[0]);
