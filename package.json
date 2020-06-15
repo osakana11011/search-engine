@@ -25,6 +25,7 @@
         "vuex": "^3.4.0"
     },
     "dependencies": {
+        "puppeteer": "^3.3.0",
         "vue-router": "^3.3.2"
     }
 }

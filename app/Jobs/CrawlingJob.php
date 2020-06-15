@@ -37,7 +37,10 @@ class CrawlingJob implements ShouldQueue
     {
         // var_dump($this->crawlingURL);
         Log::info('START - Crawling Job.');
-        Log::info($this->crawlingURL);
+        exec("node ./resources/js/scraping/index.js --url {$this->crawlingURL}", $result);
+        Log::debug(print_r(json_decode($result[0]), true));
+        $result = json_decode($result[0]);
+        Log::info("title: {$result->title}");
         Log::info('END   - Crawling Job.');
     }
 }

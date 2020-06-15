@@ -15,6 +15,7 @@
               <div class="form-group">
                 <label class="control-label">パスワード</label>
                 <input type="text" class="form-control" v-model="password" />
+                
               </div>
               <div class="form-group text-right">
                 <button class="btn btn-primary" @click="login">ログイン</button>

@@ -7,7 +7,7 @@
           <div class="form-group">
             <label class="control-label">クローリングURL</label>
             <input type="text" class="form-control" :value="crawlingUrl" @input="onInputCrawlingUrl" />
-            <div class="invalid-feedback">エラーメッセージ</div>
+            <div class="invalid-feedback active">エラーメッセージ</div>
           </div>
           <div class="form-group text-right">
             <button type="button" class="btn btn-primary" @click="submitCrawlingUrl">登録</button>
