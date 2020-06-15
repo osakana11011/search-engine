@@ -10,6 +10,8 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 
+use App\Service\DomainService;
+
 use Log;
 
 class CrawlingJob implements ShouldQueue
@@ -33,14 +35,15 @@ class CrawlingJob implements ShouldQueue
      *
      * @return void
      */
-    public function handle()
+    public function handle(DomainService $domainService)
     {
         // var_dump($this->crawlingURL);
         Log::info('START - Crawling Job.');
-        exec("node ./resources/js/scraping/index.js --url {$this->crawlingURL}", $result);
-        Log::debug(print_r(json_decode($result[0]), true));
-        $result = json_decode($result[0]);
-        Log::info("title: {$result->title}");
+        $domainService->storeDomain($this->crawlingURL);
+        // exec("node ./resources/js/scraping/index.js --url {$this->crawlingURL}", $result);
+        // Log::debug(print_r(json_decode($result[0]), true));
+        // $result = json_decode($result[0]);
+        // Log::info("title: {$result->title}");
         Log::info('END   - Crawling Job.');
     }
 }
