@@ -4,9 +4,9 @@
       <!-- クローリング対象を登録するフォーム -->
       <div class="m-4">
         <div class="panel-body">
-          <div class="form-group">
-            <label class="control-label">クローリングURL</label>
-            <input type="text" class="form-control" :value="crawlingUrl" @input="onInputCrawlingUrl" />
+          <div class="form-group textbox-wrapper">
+            <input type="text" class="form-control textbox-input" :value="crawlingUrl" @input="onInputCrawlingUrl" spellcheck="false" />
+            <span class="textbox-label">https://</span>
             <div class="invalid-feedback active">エラーメッセージ</div>
           </div>
           <div class="form-group text-right">
@@ -113,5 +113,23 @@
     table-layout: fixed;
     word-break: break-all;
     word-wrap: break-all;
+  }
+
+  .textbox-wrapper {
+    position: relative;
+  }
+
+  .textbox-input {
+    padding: 0 0 0 60px;
+  }
+
+  .textbox-label {
+    position: absolute;
+    top: 0;
+    left: 10px;
+    height: calc(1.6em + 0.75rem + 2px);
+    line-height: calc(1.6em + 0.75rem + 2px);
+    width: 60px;
+    font-weight: bold;
   }
 </style>

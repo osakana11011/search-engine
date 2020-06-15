@@ -10,7 +10,7 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 
-use App\Service\DomainService;
+use App\Models\Domain;
 
 use Log;
 
@@ -35,11 +35,14 @@ class CrawlingJob implements ShouldQueue
      *
      * @return void
      */
-    public function handle(DomainService $domainService)
+    public function handle()
     {
         // var_dump($this->crawlingURL);
         Log::info('START - Crawling Job.');
-        $domainService->storeDomain($this->crawlingURL);
+
+        // ドメイン情報の登録
+        $domain = Domain::firstOrCreate(['name' => Domain::extractDomainName($this->crawlingURL)]);
+
         // exec("node ./resources/js/scraping/index.js --url {$this->crawlingURL}", $result);
         // Log::debug(print_r(json_decode($result[0]), true));
         // $result = json_decode($result[0]);

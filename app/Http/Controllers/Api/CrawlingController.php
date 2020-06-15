@@ -31,11 +31,14 @@ class CrawlingController extends Controller
 
     public function create(Request $request)
     {
+        $crawlingUrl = 'https://' . $request->input('url');
+
         Crawling::create([
             'user_id' => $this->user->id,
-            'url' => $request->input('url'),
+            'url' => $crawlingUrl,
         ]);
-        CrawlingJob::dispatch($request->input('url'));
+        CrawlingJob::dispatch($crawlingUrl);
+
         return response('OK', 200);
     }
 }
