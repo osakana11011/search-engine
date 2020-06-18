@@ -11,10 +11,19 @@ if (process.argv.length < 3) {
 }
 
 // robots.txtを読み込む為の正規表現
-const userAgentRegex = new RegExp('^User-agent:\\s*(\\S+)$', 'i');
-const allowRegex = new RegExp('^Allow:\\s*(\\S+)$', 'i');
-const disAllowRegex = new RegExp('^Disallow:\\s*(\\S+)$', 'i');
-const sitemapRegex = new RegExp('^Sitemap:\\s*(\\S+)$', 'i');
+const userAgentRegex = new RegExp('^User-agent\\s*:\\s*(\\S+)$', 'i');
+const allowRegex = new RegExp('^Allow\\s*:\\s*(\\S+)$', 'i');
+const disAllowRegex = new RegExp('^Disallow\\s*:\\s*(\\S+)$', 'i');
+const sitemapRegex = new RegExp('^Sitemap\\s*:\\s*(\\S+)$', 'i');
+
+/**
+ * 自分自身が許可されているエージェント定義かどうか調べる。
+ * "*"以外のユーザーエージェントは適用しないようにする。
+ * @param {string} userAgent 許可されているユーザーエージェント
+ */
+function isAllowed (userAgent) {
+  return (userAgent === '*');
+}
 
 // スクレイピング処理
 puppeteer.launch({
@@ -26,28 +35,38 @@ puppeteer.launch({
   const body = await page.$eval('body', el => el.innerText);
   const items = body.split('\n');
 
-  let userAgents = [];
-  let allows = [];
-  let disallows = [];
-  let sitemap = '';
-
+  let result = {
+    allows: [],
+    disallows: [],
+  }
+  let isApplyed = false;
+  let sitemaps = [];
   items.forEach(item => {
+    // user-agent
     if (userAgentRegex.test(item)) {
-      userAgents.push(item.match(userAgentRegex)[1]);
-    } else if (allowRegex.test(item)) {
-      allows.push(item.match(allowRegex)[1]);
-    } else if (disAllowRegex.test(item)) {
-      disallows.push(item.match(disAllowRegex)[1]);
-    } else if (sitemapRegex.test(item)) {
-      sitemap = item.match(sitemapRegex)[1];
+      isApplyed = isAllowed(item.match(userAgentRegex)[1]);
+    }
+
+    // Allow・Disallow
+    if (isApplyed) {
+      if (allowRegex.test(item)) {
+        // Allow
+        result.allows.push(item.match(allowRegex)[1]);
+      } else if (disAllowRegex.test(item)) {
+        // Disallow
+        result.disallows.push(item.match(disAllowRegex)[1]);
+      }
+    }
+
+    // sitemap
+    if (sitemapRegex.test(item)) {
+      sitemaps.push(item.match(sitemapRegex)[1]);
     }
   });
 
   console.log(JSON.stringify({
-    userAgents,
-    allows,
-    disallows,
-    sitemap,
+    result,
+    sitemaps,
   }));
 
   browser.close();
