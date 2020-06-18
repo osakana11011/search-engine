@@ -37,17 +37,20 @@ class CrawlingJob implements ShouldQueue
      */
     public function handle()
     {
-        // var_dump($this->crawlingURL);
         Log::info('START - Crawling Job.');
 
-        // ドメイン情報の登録
+        // 1. ドメイン情報の登録
         $domain = Domain::firstOrCreate(['name' => Domain::extractDomainName($this->crawlingURL)]);
 
-        // robots.txtを読み取る
+        // 2. robots.txtをスクレイピング
         $robotsURL = "https://{$domain->name}/robots.txt";
         exec("node ./resources/js/scraping/robots.js --url {$robotsURL}", $_robotsResult);
         $robotsResult = json_decode($_robotsResult[0]);
-        
+
+        // 3. ページをスクレイピング
+        exec("node ./resources/js/scraping/page.js --url {$this->crawlingURL}", $_pageResult);
+        $pageResult = json_decode($_pageResult[0]);
+        Log::info(print_r($pageResult, true));
 
         // exec("node ./resources/js/scraping/index.js --url {$this->crawlingURL}", $result);
         // Log::debug(print_r(json_decode($result[0]), true));
