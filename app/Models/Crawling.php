@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\User;
 
 class Crawling extends Model
 {
@@ -17,10 +18,28 @@ class Crawling extends Model
         'deleted_at',
     ];
 
-    public function scopeFilterByUserID($query, $userID)
+    /**
+     * ユーザーIDを元にCrawlingを取得する。
+     * @param int $userID
+     * @param int $n
+     * @return Collection
+     */
+    public function getByUserID(int $userID, int $n = 10)
     {
-        if (!empty($userID)) {
-            return $query->where('user_id', $userID);
-        }
+        return $this->where('user_id', $userID)
+            ->orderBy('created_at', 'desc')
+            ->paginate($n);
+    }
+
+    /**
+     * ログイン中のユーザーIDを付け加えて登録する。
+     * @param array $data
+     * @return Crawling
+     */
+    public function createWithUserID(User $user)
+    {
+        $this->fill([
+            'user_id' => $user->id,
+        ])->save();
     }
 }

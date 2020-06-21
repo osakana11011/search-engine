@@ -49,4 +49,9 @@ class User extends Authenticatable implements JWTSubject
         // JWT トークンに埋め込む追加の情報を返す
         return [];
     }
+
+    public function crawlings()
+    {
+        return $this->hasMany('App\Models\Crawling');
+    }
 }

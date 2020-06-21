@@ -6,7 +6,7 @@ namespace Tests\Unit\Models;
 use Tests\TestCase;
 use App\Models\Domain;
 
-class ExtractDomainTest extends TestCase
+class DomainTest extends TestCase
 {
     /**
      * 検証内容: 「https」かつ最後に'/'無しのパターン
@@ -16,7 +16,6 @@ class ExtractDomainTest extends TestCase
     public function testExtractDomain1()
     {
         $actual = Domain::extractDomainName('https://google.com');
-
         $this->assertEquals('google.com', $actual);
     }
 
@@ -28,7 +27,6 @@ class ExtractDomainTest extends TestCase
     public function testExtractDomain2()
     {
         $actual = Domain::extractDomainName('https://google.com/');
-
         $this->assertEquals('google.com', $actual);
     }
 
@@ -40,7 +38,6 @@ class ExtractDomainTest extends TestCase
     public function testExtractDomain3()
     {
         $actual = Domain::extractDomainName('http://google.com');
-
         $this->assertEquals('google.com', $actual);
     }
 
@@ -52,7 +49,6 @@ class ExtractDomainTest extends TestCase
     public function testExtractDomain4()
     {
         $actual = Domain::extractDomainName('http://google.com/');
-
         $this->assertEquals('google.com', $actual);
     }
 
@@ -64,7 +60,6 @@ class ExtractDomainTest extends TestCase
     public function testExtractDomain5()
     {
         $actual = Domain::extractDomainName('https://google.com/hoge/1');
-
         $this->assertEquals('google.com', $actual);
     }
 
@@ -76,7 +71,6 @@ class ExtractDomainTest extends TestCase
     public function testExtractDomain6()
     {
         $actual = Domain::extractDomainName('https://google.com:443');
-
         $this->assertEquals('google.com', $actual);
     }
 
@@ -88,7 +82,6 @@ class ExtractDomainTest extends TestCase
     public function testExtractDomain7()
     {
         $actual = Domain::extractDomainName('https://google.com:443/hoge/1');
-
         $this->assertEquals('google.com', $actual);
     }
 
@@ -100,7 +93,6 @@ class ExtractDomainTest extends TestCase
     public function testExtractDomain8()
     {
         $actual = Domain::extractDomainName('google.com/hoge/1');
-
         $this->assertEquals('google.com/hoge/1', $actual);
     }
 

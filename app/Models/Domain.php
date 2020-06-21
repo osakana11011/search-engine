@@ -14,7 +14,11 @@ class Domain extends Model
         'deleted_at',
     ];
 
-
+    /**
+     * URLからドメイン名を抜き出す。
+     * @param string $url
+     * @return string
+     */
     static public function extractDomainName (string $url)
     {
         // この後の正規表現の為に、最後の1文字が'/'で終わらないURLの場合は付けておく。
