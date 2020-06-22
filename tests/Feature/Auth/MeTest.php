@@ -9,7 +9,7 @@ use JWTAuth;
 use WithoutMiddleware;
 use Log;
 
-class LoginTest extends TestCase
+class MeTest extends TestCase
 {
     use RefreshDatabase;
 
