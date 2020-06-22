@@ -9,6 +9,8 @@ use Log;
 
 class LoginTest extends TestCase
 {
+    use RefreshDatabase;
+
     /**
      * ログインのテスト(成功時)
      * - ステータスコード200が返ってくるか
@@ -17,11 +19,12 @@ class LoginTest extends TestCase
      */
     public function testLogin()
     {
-        $user = factory(User::class, 1)->create()->first();
+        $user = factory(User::class)->create()->first();
         $response = $this->post('/api/auth/login', [
             'email' => $user->email,
             'password' => 'password',
         ]);
+
         $response
             ->assertStatus(200)
             ->assertJson([
@@ -38,11 +41,12 @@ class LoginTest extends TestCase
      */
     public function testLoginFailed()
     {
-        $user = factory(User::class, 1)->create()->first();
+        $user = factory(User::class)->create()->first();
         $response = $this->post('/api/auth/login', [
             'email' => $user->email,
             'password' => 'invalid_password',
         ]);
+
         $response
             ->assertStatus(401)
             ->assertJson([
@@ -59,10 +63,11 @@ class LoginTest extends TestCase
      */
     public function testLoginValidationError1()
     {
-        $user = factory(User::class, 1)->create()->first();
+        $user = factory(User::class)->create()->first();
         $response = $this->post('/api/auth/login', [
             'email' => $user->email,
         ]);
+
         $response
             ->assertStatus(422)
             ->assertJson([
@@ -85,9 +90,10 @@ class LoginTest extends TestCase
      */
     public function testLoginValidationError2()
     {
-        $user = factory(User::class, 1)->create()->first();
+        $user = factory(User::class)->create()->first();
         $response = $this->post('/api/auth/login', [
         ]);
+
         $response
             ->assertStatus(422)
             ->assertJson([
